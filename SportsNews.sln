@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SportsNews.DAL", "SportsNew
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SportsNews.Service", "SportsNews.Service\SportsNews.Service.csproj", "{49D90758-5FEC-48FF-B4BA-C61A8F6AD49E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SportsNews.Utility", "SportsNews.Utility\SportsNews.Utility.csproj", "{99E87B49-0A6F-499C-9062-C53FBC3B58D9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{49D90758-5FEC-48FF-B4BA-C61A8F6AD49E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{49D90758-5FEC-48FF-B4BA-C61A8F6AD49E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{49D90758-5FEC-48FF-B4BA-C61A8F6AD49E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99E87B49-0A6F-499C-9062-C53FBC3B58D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99E87B49-0A6F-499C-9062-C53FBC3B58D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99E87B49-0A6F-499C-9062-C53FBC3B58D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99E87B49-0A6F-499C-9062-C53FBC3B58D9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

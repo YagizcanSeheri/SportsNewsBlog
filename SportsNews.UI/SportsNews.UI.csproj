@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
   <Import Project="..\..\SportsNews\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\..\SportsNews\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -45,6 +46,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -117,9 +124,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_Start\BundleConfig.cs" />
-    <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\AppUserController.cs" />
+    <Compile Include="Areas\Admin\Data\DTO\AppUserDTO.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -127,27 +135,58 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\bootstrap-theme.css" />
-    <Content Include="Content\bootstrap-theme.min.css" />
-    <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\css\AdminLTE.min.css" />
+    <Content Include="Content\css\blue.css" />
+    <Content Include="Content\css\bootstrap-theme.css" />
+    <Content Include="Content\css\bootstrap-theme.min.css" />
+    <Content Include="Content\css\bootstrap.css" />
+    <Content Include="Content\css\bootstrap.min.css" />
+    <Content Include="Content\css\font-awesome.min.css" />
+    <Content Include="Content\css\ionicons.min.css" />
+    <Content Include="Content\css\_all-skins.min.css" />
+    <Content Include="Content\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\fonts\ionicons.svg" />
+    <Content Include="Content\Image\userlogo.jpg" />
+    <Content Include="Content\scripts\adminlte.min.js" />
+    <Content Include="Content\scripts\demo.js" />
+    <Content Include="Content\scripts\fastclick.js" />
+    <Content Include="Content\scripts\icheck.min.js" />
+    <Content Include="Content\scripts\jquery.min.js" />
+    <Content Include="Content\scripts\jquery.slimscroll.js" />
+    <Content Include="Content\scripts\jquery.slimscroll.min.js" />
+    <Content Include="Content\Uploads\UserImages\CruptedImages\userlogo.jpg" />
+    <Content Include="Content\Uploads\UserImages\OriginalImages\userlogo.jpg" />
+    <Content Include="Content\Uploads\UserImages\XSmallImages\userlogo.jpg" />
     <Content Include="favicon.ico" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
-    <None Include="Scripts\jquery-3.4.1.intellisense.js" />
-    <Content Include="Scripts\jquery-3.4.1.js" />
-    <Content Include="Scripts\jquery-3.4.1.min.js" />
-    <Content Include="Scripts\jquery-3.4.1.slim.js" />
-    <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
-    <None Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\jquery.validate.js" />
-    <Content Include="Scripts\jquery.validate.min.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Content\css\Site.css" />
+    <Content Include="Content\scripts\bootstrap.js" />
+    <Content Include="Content\scripts\bootstrap.min.js" />
+    <Content Include="Content\fonts\ionicons.eot" />
+    <Content Include="Content\fonts\ionicons.ttf" />
+    <Content Include="Content\fonts\ionicons.woff" />
+    <Content Include="Content\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\fonts\FontAwesome.otf" />
+    <Content Include="Areas\Admin\Views\web.config" />
+    <Content Include="Areas\Admin\Views\Shared\_LayoutPage1.cshtml" />
+    <Content Include="Areas\Admin\Views\AppUser\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\AppUser\List.cshtml" />
+    <Content Include="Areas\Admin\Views\AppUser\Update.cshtml" />
+    <None Include="Content\scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Content\scripts\jquery-3.4.1.js" />
+    <Content Include="Content\scripts\jquery-3.4.1.min.js" />
+    <Content Include="Content\scripts\jquery-3.4.1.slim.js" />
+    <Content Include="Content\scripts\jquery-3.4.1.slim.min.js" />
+    <None Include="Content\scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Content\scripts\jquery.validate.js" />
+    <Content Include="Content\scripts\jquery.validate.min.js" />
+    <Content Include="Content\scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Content\scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Content\scripts\modernizr-2.8.3.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -168,17 +207,31 @@
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Content\bootstrap.min.css.map" />
-    <Content Include="Content\bootstrap.css.map" />
-    <Content Include="Content\bootstrap-theme.min.css.map" />
-    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\css\bootstrap.min.css.map" />
+    <Content Include="Content\css\bootstrap.css.map" />
+    <Content Include="Content\css\bootstrap-theme.min.css.map" />
+    <Content Include="Content\css\bootstrap-theme.css.map" />
     <None Include="packages.config" />
-    <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
-    <Content Include="Scripts\jquery-3.4.1.min.map" />
+    <Content Include="Content\scripts\jquery-3.4.1.slim.min.map" />
+    <Content Include="Content\scripts\jquery-3.4.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SportsNews.Service\SportsNews.Service.csproj">
+      <Project>{49D90758-5FEC-48FF-B4BA-C61A8F6AD49E}</Project>
+      <Name>SportsNews.Service</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SportsNews.Utility\SportsNews.Utility.csproj">
+      <Project>{99E87B49-0A6F-499C-9062-C53FBC3B58D9}</Project>
+      <Name>SportsNews.Utility</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SportsNews\SportsNews.Entity.csproj">
+      <Project>{B0EB0264-216C-4FCD-B28D-3E5264E83BE7}</Project>
+      <Name>SportsNews.Entity</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -213,7 +266,10 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\..\SportsNews\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\SportsNews\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
   </Target>
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

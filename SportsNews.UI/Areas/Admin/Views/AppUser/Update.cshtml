@@ -1,0 +1,77 @@
+﻿
+@{
+    ViewBag.Title = "Update";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutPage1.cshtml";
+}
+
+@model SportsNews.UI.Areas.Admin.Data.DTO.AppUserDTO
+
+    <section class="content">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="box box-danger">
+                    <div class="box-header with-border">
+                        <div class="box-title">
+                            <h4>Update User</h4>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <form action="/Admin/AppUser/Update" method="post" role="form" enctype="multipart/form-data">
+
+                            <input type="text" style="visibility:hidden" name="Id" value="@Model.Id" />
+
+                            <div class="form-group">
+                                <label for="FirstName">First Name</label>
+                                <input type="text" name="FirstName" value="@Model.FirstName" class="form-control" placeholder="First Name" />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="LastName">Last Name</label>
+                                <input type="text" name="LastName" value="@Model.LastName" class="form-control" placeholder="Last Name" />
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="Name">User Name</label>
+                                <input type="text" name="UserName" value="@Model.UserName" class="form-control" placeholder="User Name" />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="Mail">Email address</label>
+                                <input type="email" class="form-control" value="@Model.Mail" name="Mail" id="exampleInputEmail1" placeholder="Enter email">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="Password">Password</label>
+                                <input type="password" class="form-control" value="@Model.Password" name="Password" id="exampleInputPassword1" placeholder="Password">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="Role">Choose The Role</label>
+                                <select name="Role" value="@Model.Role" class="form-control">
+                                    @foreach (var item in Enum.GetNames(typeof(SportsNews.Entities.Role)))
+                                    {
+                                        <option value="@item">@item</option>
+                                    }
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="Image">Choose The Picture</label>
+                                <input type="file" name="Image" value="@Model.XSmallUserImage" class="form-control" />
+                            </div>
+
+                            <div class="form-group" style="float:right">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+
+                        </form>
+                    </div>
+                    <div class="box-footer">
+                        <a href="/Admin/AppUser/List" class="btn btn-block btn-warning">Back To List</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
