@@ -1,0 +1,64 @@
+﻿
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutPage1.cshtml";
+}
+
+@model IEnumerable<SportsNews.Entities.Post>
+
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box">
+                    <div class="box-header with-border">
+                        <h4 class="box-title">List of Post</h4>
+                    </div>
+                    <div class="box-body">
+                        <table class="table table-responsive">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Header</th>
+                                    <th>Content</th>
+                                    <th>Image</th>
+                                    <th>Category Name</th>
+                                    <th>Author</th>
+                                    <th>Status</th>
+                                    <th>Create Date</th>
+                                    <th>Update Date</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@item.Id</td>
+                                        <td>@item.Header</td>
+                                        <td>@item.Content</td>
+                                        <td>
+                                            <img src="@item.ImagePath" style="display:block" width="75" height="75" />
+                                        </td>
+                                        <td>@item.Category.Name</td>
+                                        <td>@item.AppUser.FirstName @item.AppUser.LastName</td>
+                                        <td>@item.Status</td>
+                                        <td>@item.CreateDate</td>
+                                        <td>@item.UpdateDate</td>
+                                        <td>
+                                            <a href="/Admin/Post/Details/@item.Id" type="button" class="btn btn-info">Details</a> ||
+                                            <a href="/Admin/Post/Update/@item.Id" type="button" class="btn btn-warning">Update</a> ||
+                                            <a href="/Admin/Post/Delete/@item.Id" type="button" class="btn btn-danger">Delete</a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="box-footer">
+                        <a href="/Admin/Post/Create" class="btn btn-primary">Create a new one</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+

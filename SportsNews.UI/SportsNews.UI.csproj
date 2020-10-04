@@ -128,8 +128,12 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AppUserController.cs" />
     <Compile Include="Areas\Admin\Controllers\CategoryController.cs" />
+    <Compile Include="Areas\Admin\Controllers\PostController.cs" />
     <Compile Include="Areas\Admin\Data\DTO\AppUserDTO.cs" />
     <Compile Include="Areas\Admin\Data\DTO\CategoryDTO.cs" />
+    <Compile Include="Areas\Admin\Data\DTO\PostDTO.cs" />
+    <Compile Include="Areas\Admin\Data\DTO\VMs\AddPostVM.cs" />
+    <Compile Include="Areas\Admin\Data\DTO\VMs\UpdatePostVM.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -181,6 +185,10 @@
     <Content Include="Areas\Admin\Views\Category\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Category\List.cshtml" />
     <Content Include="Areas\Admin\Views\Category\Update.cshtml" />
+    <Content Include="Areas\Admin\Views\Post\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Post\List.cshtml" />
+    <Content Include="Areas\Admin\Views\Post\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Post\Update.cshtml" />
     <None Include="Content\scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Content\scripts\jquery-3.4.1.js" />
     <Content Include="Content\scripts\jquery-3.4.1.min.js" />

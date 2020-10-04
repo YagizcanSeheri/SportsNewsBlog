@@ -1,0 +1,69 @@
+﻿
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutPage1.cshtml";
+}
+
+@model SportsNews.Entities.Post
+
+    <section class="content">
+        <div class="row">
+            <div class="col-sm-8">
+                <div class="box box-widget">
+                    <div class="box-header with-border">
+                        <div class="user-block">
+                            <img class="img-circle" src="@Model.AppUser.UserImage" alt="User Image">
+                            <span class="username"><a href="#">@Model.AppUser.FirstName @Model.AppUser.LastName</a></span>
+                            <span class="description">Shared publicly - @Model.CreateDate.ToShortDateString()</span>
+                        </div>
+                    </div>
+                    
+                    <div class="box-body">
+                        <img class="img-responsive pad" src="@Model.ImagePath" alt="Photo">
+                        <button type="button" class="btn btn-default btn-xs"><i class="fa fa-share"></i> Share</button>
+                        <button type="button" class="btn btn-default btn-xs"><i class="fa fa-thumbs-o-up"></i> Like</button>
+                        <span class="pull-right text-muted">@Model.Likes.Count likes - @Model.Comments.Count comments</span>
+                        <p>
+                            <h5>@Model.Header</h5>
+                        </p>
+                        <p>@Model.Content</p>
+                    </div>
+                    <!-- /.box-body -->
+                    <div class="box-footer box-comments">
+                        <div class="box-comment">
+                            <!-- User image -->
+                            <img class="img-circle img-sm" src="@Model.ImagePath" alt="User Image">
+
+                            <div class="comment-text">
+                                <span class="@Model.AppUser.UserName">
+                                    
+                                    <span class="text-muted pull-right">@DateTime.Now</span>
+                                </span><!-- /.username -->
+                                
+                            </div>
+                            <!-- /.comment-text -->
+                        </div>
+                        <!-- /.box-comment -->
+                        <div class="box-comment">
+                            
+
+                            
+                            <!-- /.comment-text -->
+                        </div>
+                        <!-- /.box-comment -->
+                    </div>
+                    <!-- /.box-footer -->
+                    <div class="box-footer">
+                        <form action="#" method="post">
+                            <img class="img-responsive img-circle img-sm" src="../dist/img/user4-128x128.jpg" alt="Alt Text">
+                            <!-- .img-push is used to add margin to elements next to floating images -->
+                            <div class="img-push">
+                                <input type="text" class="form-control input-sm" placeholder="Press enter to post comment">
+                            </div>
+                        </form>
+                    </div>
+                    <!-- /.box-footer -->
+                </div>
+            </div>
+        </div>
+    </section>

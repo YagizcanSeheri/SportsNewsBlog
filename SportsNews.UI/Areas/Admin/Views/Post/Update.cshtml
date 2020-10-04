@@ -1,0 +1,70 @@
+﻿
+@{
+    ViewBag.Title = "Update";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutPage1.cshtml";
+}
+
+
+@model SportsNews.UI.Areas.Admin.Data.DTO.VMs.UpdatePostVM
+
+    <section class="content">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="box box-danger">
+                    <div class="box-header with-border">
+                        <div class="box-title">
+                            <h4>Update Post</h4>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <form action="/Admin/Post/Update" method="post" role="form" enctype="multipart/form-data">
+
+                            <input type="text" style="visibility:hidden" name="Id" value="@Model.PostDTO.Id" />
+
+                            <div class="form-group">
+                                <label for="Header">Header</label>
+                                <input type="text" name="Header" value="@Model.PostDTO.Header" class="form-control" placeholder="Header" />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="Content">Content</label>
+                                <input type="text" name="Content" value="@Model.PostDTO.Content" class="form-control" placeholder="Content" />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="CategoryId">Choose The Category</label>
+                                <select name="CategoryId" class="form-control">
+                                    @foreach (var item in Model.Categories)
+                                    {
+                                        <option value="@item.Id">@item.Name</option>
+                                    }
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="AppUserId">Choose The Author</label>
+                                <select name="AppUserId" class="form-control">
+                                    @foreach (var item in Model.AppUsers)
+                                    {
+                                        <option value="@item.Id">@item.FirstName @item.LastName</option>
+                                    }
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="Image">Image</label>
+                                <input type="file" name="Image" value="@Model.PostDTO.ImagePath" class="form-control" />
+                            </div>
+
+                            <div class="form-group" style="float:right">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="box-footer">
+                        <a href="/Admin/AppUser/List" class="btn btn-block btn-warning">Back To List</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
