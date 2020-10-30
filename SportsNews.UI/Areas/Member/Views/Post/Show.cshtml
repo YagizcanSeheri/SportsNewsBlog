@@ -1,0 +1,174 @@
+﻿
+@{
+    ViewBag.Title = "Show";
+    Layout = "~/Areas/Member/Views/Shared/_MemberLayoutPage.cshtml";
+}
+
+@model SportsNews.UI.Areas.Member.Data.VMs.PostDetailVM
+
+
+<section class="content">
+    <div class="row">
+        <div class="col-sm-8">
+            <div class="box box-widget">
+                <div class="box-header with-border">
+                    <div class="user-block">
+                        <img class="img-circle" src="@Model.AppUser.UserImage" alt="User Image">
+                        <span class="username"><a href="#">@Model.AppUser.FirstName @Model.AppUser.LastName</a></span>
+                        <span class="description">Shared publicly - @Model.Post.CreateDate.ToShortDateString()</span>
+                    </div>
+                    <!-- /.user-block -->
+
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body" id="postlist">
+                    <img class="img-responsive pad" src="@Model.Post.ImagePath" alt="Photo">
+                    <button type="button" class="btn btn-default btn-xs"><i class="fa fa-share"></i> Share</button>
+                    @if (!Model.Post.Likes.Any(x => x.AppUser.UserName == User.Identity.Name))
+                    {
+                        string elementId = "message" + Model.Post.Id;
+                        <button type="button" id="like" onclick="like(@Model.Post.Id)" class="btn btn-default btn-xs"><i class="fa fa-heart"></i> Like</button>
+                        <span id="@elementId" style="display:none">Like you</span>
+                    }
+
+                    <span class="pull-right text-muted" id="commentcount">@Model.LikeCount likes - @Model.CommentCount comments</span>
+                    <p>
+                        <h5>@Model.Post.Header</h5>
+                    </p>
+                    <p>
+                        @Model.Post.Content
+                    </p>
+                </div>
+                <!-- /.box-body -->
+                <div class="box-footer box-comments" id="dynamiccomment">
+                    @foreach (var item in Model.Comments)
+                    {
+                        <div class="box-comment" id="a_@item.Id">
+
+                            <img class="img-circle img-sm" src="@item.AppUser.UserImage" alt="User Image">
+
+                            <div class="comment-text">
+                                <span class="username">
+                                    @item.AppUser.FirstName @item.AppUser.LastName
+                                    <span class="text-muted pull-right">
+                                        @item.CreateDate.ToShortDateString()<br />
+
+                                        @if (item.AppUser.UserName == User.Identity.Name)
+                                        {
+                                            <!--commentdalete çalışmazsa 'item.Id' diye gönder-->
+                                            <a href="" id="commentdelete" onclick="commentdelete(@item.Id)" type="button" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i></a>
+
+                                            <button type="button" id="edit" class="btn btn-warning btn-xs"><i class="fa fa-edit"></i></button>
+                                        }
+                                    </span>
+                                </span>
+                                @item.Content
+                            </div>
+                            <!-- /.comment-text -->
+                        </div>
+                        <!-- /.box-comment -->
+                    }
+                </div>
+                <!-- /.box-footer -->
+                <div class="box-footer">
+                    <img class="img-responsive img-circle img-sm" src="@Session["ImagePath"]" alt="Alt Text">
+                    <!-- .img-push is used to add margin to elements next to floating images -->
+                    <div class="img-push">
+                        <input type="text" id="comment" class="form-control input-sm" placeholder="Press enter to post comment">
+                        <button type="button" id="addComment" onclick="comment(@Model.Post.Id)" class="btn btn-primary btn-xs">
+                            <i class="fa fa-thumbs-o-up"></i>Comment
+                        </button>
+                        <span id="message" style="display:none">Have Comments</span>
+                    </div>
+                </div>
+                <!-- /.box-footer -->
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<script>
+    function commentdelete(id) {
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("DeleteComment", "Comment")/" + id,
+            success: function (data) {
+                $("#a_" + id).fadeOut();
+            }
+        });
+    }
+
+    function comment(postId) {
+        console.log(postId);
+        var commentText = $("#comment").val();
+
+        $.ajax({
+            type: "POST",
+            dataType: "Json",
+            data: { userComment: commentText, id: postId },
+            url: "@Url.Action("AddComment","Comment")",
+            success: function (data) {
+                if (data == true) {
+                    $("#message").removeAttr("style");
+                    $("#message").html("");
+                    $("#message").append("Have Comments.").fadeIn(2000);
+
+                    commentdynamiclist(postId);
+
+                }
+                else {
+                    $("#message").removeAttr("style");
+                    $("#message").html("");
+                    $("#message").append("An error has occured.");
+                }
+            }
+        });
+    }
+
+    function commentdynamiclist(id) {
+
+        $.ajax({
+            type: "POST",
+            dataType: "Json",
+            url: "@Url.Action("GetPostComment", "Comment")/" + id,
+            success: function (data) {
+                if (data != null) {
+                    $("#dynamiccomment").append('<div class="box-comment" id="lastcomment"><img class="img-circle img-sm" src="' + data.AppUserImagePath + '" alt="User Image"><div class="comment-text"><span class="username">' + data.FirstName + " " + data.LastName + '<span class="text-muted pull-right">' + data.CreateDate + '<br/><a href="" id="commentdelete" type="button" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i></a><button type="button" id="edit" class="btn btn-warning btn-xs"><i class="fa fa-edit"></i></button></span></span>' + data.Content + '</div></div>');
+                    $("#commentcount").hide().fadeOut(2000);
+                    $("#postlist").append('<span class="pull-right text-muted" id="commentcount">' + data.LikeCount + ' likes - ' + data.CommentCount + ' comments</span>');
+                    $("#comment").val("");
+                    $("message").fadeOut(2000);
+                    $("#lastcomment").hide().fadeIn(2000);
+                }
+            }
+        });
+    }
+
+    function like(id) {
+        $.ajax({
+            type: "POST",
+            dataType: "Json",
+            url: "@Url.Action("AddLike", "Like")/" + id,
+            success: function (data) {
+                if (data.isSuccess = true) {
+                    $("#message" + id).removeAttr("");
+                    $("#like").remove();
+                    $("message" + id).html("");
+                    $("message" + id).append(data.userMessage);
+                    $("#commentcount").hide().fadeOut(2000);
+                    $("#postlist").append('<span class="pull-right text-muted" id="commentcount">' + data.LikeCount + ' likes - ' + data.CommentCount + ' comments</span>');
+                }
+                else {
+                    $("#message" + id).removeAttr("");
+                    $("#like").remove();
+                    $("#message" + id).html("");
+                    $("#message" + id).append(data.userMessage);
+                }
+            }
+        });
+    }
+
+</script>
+
